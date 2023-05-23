@@ -1,0 +1,16 @@
+{
+  "name": "Restaurant Tech",
+  "description": "Front-End Application Demo for In-Site Ordering, Table Management, and Menu Management.",
+  "version": "1.0.0",
+  "keywords": [
+    ""
+  ],
+  "author": "Jhordy Gavinchu <dev@jhordyess.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack serve --config webpack.config.dev.js",
+    "build": "webpack --config webpack.config.prod.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  }
+}
