@@ -18,3 +18,6 @@ npm i -D gh-pages
 # Extra commands
 npm i -D typescript ts-loader @types/react @types/react-dom
 npm i -D tailwindcss postcss-loader autoprefixer
+npm i react-router-dom
+npm i redux react-redux
+npm i axios
