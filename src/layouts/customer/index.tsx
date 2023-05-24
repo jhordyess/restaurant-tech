@@ -19,7 +19,7 @@ export default function Customer({ children, links }: Customer) {
   };
 
   return (
-    <div className="bg-red-50 w-full h-screen px-10">
+    <div className="bg-red-50 w-full min-h-screen px-10">
       <header className="py-6 border-b">
         <nav className="flex flex-row justify-between items-center">
           <div className="relative flex flex-column item-center">

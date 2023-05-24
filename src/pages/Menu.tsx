@@ -1,9 +1,46 @@
+import { fetchCategories, fetchProducts } from "@api/requests";
 import * as React from "react";
+import { TProduct } from "types";
+
+const ProductCard = ({ title, price, image, category }) => {
+  return (
+    <div>
+      <figure className="w-64 h-72 relative border-x border-t b-b">
+        <img className="w-full h-full" src={image} alt="None" />
+        <div className="absolute top-0 right-0 flex flex-row text-sm">
+          <button className="hover:bg-red-100 py-2 px-3">➕</button>
+          <button className="hover:bg-red-100 py-2 px-3">🖤</button>
+        </div>
+      </figure>
+      <div className="h-16 border flex flex-col items-center justify-center">
+        <span className="font-bold">{title}</span>
+        <span className="text-amber-800">{price}$</span>
+      </div>
+    </div>
+  );
+};
 
 export default function Menu() {
+  const [categories, setCategories] = React.useState<string[]>([]);
+  const [products, setProducts] = React.useState<TProduct[]>([]);
+
+  const getCategories = async () => {
+    const categories = await fetchCategories();
+    setCategories(categories);
+  };
+
+  const getProducts = async () => {
+    const products = await fetchProducts();
+    setProducts(products);
+  };
+
+  React.useEffect(() => {
+    getCategories();
+    getProducts();
+  }, []);
+
   return (
     <section className="flex flex-col items-center py-6 gap-y-6">
-      <h1 className="text-lg">Menu</h1>
       <section className="w-64 mx-auto flex flex-row justify-between items-center">
         <input
           type="text"
@@ -23,7 +60,25 @@ export default function Menu() {
           </svg>
         </button>
       </section>
-      <section></section>
+      {categories.length > 1 && (
+        <section>
+          <ul className="flex flex-row gap-6">
+            {categories.map((name, index) => (
+              <li key={"cat-" + index}>{name}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+      <section className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+        {products.map(({ name, category, image, price }) => (
+          <ProductCard
+            category={category}
+            title={name}
+            image={image}
+            price={price}
+          />
+        ))}
+      </section>
     </section>
   );
 }
