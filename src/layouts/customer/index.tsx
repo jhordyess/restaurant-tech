@@ -85,7 +85,7 @@ export default function Customer({ children, links }: Customer) {
           </div>
         </nav>
       </header>
-      <main className="py-4">{children}</main>
+      <main>{children}</main>
     </div>
   );
 }
