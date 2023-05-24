@@ -16,17 +16,18 @@ const customerRoutes = [
   {
     path: "/",
     element: <Home />,
-    name: "Home",
-    position: "left",
+    excluded: true,
   },
   {
-    path: "about",
+    path: "/about",
     element: <About />,
+    name: "About",
     position: "left",
   },
   {
-    path: "Contact",
+    path: "/contact",
     element: <Contact />,
+    name: "Contact",
     position: "left",
   },
   {
@@ -78,19 +79,43 @@ const customerRoutes = [
   {
     path: "*",
     element: <NotFound />,
-    name: "Not Found",
     excluded: true,
   },
 ];
 
-export const customersLinks = customerRoutes
-  .filter(({ excluded }) => !excluded)
-  .map(({ path, name, isPrivate, position }) => ({
-    path,
-    name,
-    isPrivate,
-    position,
-  }));
+export type TCustomersLink = {
+  path: string;
+  name: string;
+  isPrivate?: boolean;
+};
+
+export type TCustomersLinks = [
+  TCustomersLink[],
+  TCustomersLink,
+  TCustomersLink[]
+];
+
+const customerRoutesAccepted = customerRoutes.filter(
+  ({ excluded }) => !excluded
+);
+
+const leftDropdown: TCustomersLink[] = customerRoutesAccepted
+  .filter(({ position }) => position === "left")
+  .map(({ path, name }) => ({ path, name }));
+
+const rightLinks: TCustomersLink[] = customerRoutesAccepted
+  .filter(({ position }) => position === "right")
+  .map(({ path, name, isPrivate }) => ({ path, name, isPrivate }));
+
+const center: TCustomersLink = customerRoutesAccepted
+  .filter(({ position }) => position === "center")
+  .map(({ path, name }) => ({ path, name }))[0];
+
+export const customersLinks: TCustomersLinks = [
+  leftDropdown,
+  center,
+  rightLinks,
+];
 
 export const CustomerRoutes = () =>
   useRoutes(customerRoutes.map(({ path, element }) => ({ path, element })));
