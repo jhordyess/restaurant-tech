@@ -2,12 +2,12 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { TCustomersLinks } from "routes";
 
-interface Customer {
+interface ICustomer {
   children: React.ReactNode;
   links: TCustomersLinks;
 }
 
-export default function Customer({ children, links }: Customer) {
+export default function Customer({ children, links }: ICustomer) {
   const [left, center, right] = links;
 
   const rightFixed = right.filter(({ isPrivate }) => !isPrivate);
