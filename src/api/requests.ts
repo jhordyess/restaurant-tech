@@ -136,7 +136,7 @@ export const fetchProducts = () =>
     },
     {
       name: "Api con Pastel Boliviano",
-      category: "Desserts",
+      category: "Desserts", //Also Appetizers
       price: 5.99,
       image: "",
     },
@@ -237,10 +237,7 @@ export const fetchProducts = () =>
       price: 6.99,
       image: "",
     },
-    {
-      name: "Api con Pastel Boliviano",
-      category: "Appetizers",
-      price: 5.99,
-      image: "",
-    },
   ]);
+
+export const fetchProductImage = (product: TProduct) =>
+  fakeRequest({ ...product, image: "https://picsum.photos/300/400" });

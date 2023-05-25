@@ -1,10 +1,8 @@
 import * as React from "react";
 import { fetchCategories, fetchProducts } from "@api/requests";
-import { connect } from "react-redux";
-import { setProducts as setProductsAction } from "@store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductsWithImage } from "@store/actions";
 import { IState } from "@store/reducer";
-// import { Dispatch } from "redux";
-// import { TProduct } from "types";
 
 const ProductCard = ({ title, price, image, category }) => {
   return (
@@ -24,8 +22,11 @@ const ProductCard = ({ title, price, image, category }) => {
   );
 };
 
-function Menu({ products, setProducts }) {
+function Menu() {
   const [categories, setCategories] = React.useState<string[]>([]);
+
+  const products = useSelector((state: IState) => state.products);
+  const dispatch = useDispatch();
 
   const getCategories = async () => {
     const categories = await fetchCategories();
@@ -34,7 +35,7 @@ function Menu({ products, setProducts }) {
 
   const getProducts = async () => {
     const products = await fetchProducts();
-    setProducts(products);
+    dispatch(getProductsWithImage(products));
   };
 
   React.useEffect(() => {
@@ -73,8 +74,9 @@ function Menu({ products, setProducts }) {
         </section>
       )}
       <section className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-        {products.map(({ name, category, image, price }) => (
+        {products.map(({ name, category, image, price }, index) => (
           <ProductCard
+            key={name}
             category={category}
             title={name}
             image={image}
@@ -86,17 +88,4 @@ function Menu({ products, setProducts }) {
   );
 }
 
-const mapStateToProps = (state: IState) => ({
-  products: state.products,
-});
-
-// Alternative
-// const mapDispatchToProps = (dispatch: Dispatch) => ({
-//   setProducts: (products: TProduct[]) => dispatch(setProductsAction(products)),
-// });
-
-const mapDispatchToProps = {
-  setProducts: setProductsAction,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Menu);
+export default Menu;
