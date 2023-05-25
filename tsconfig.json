@@ -8,7 +8,8 @@
     "paths": {
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
-      "@api/*": ["api/*"]
+      "@api/*": ["api/*"],
+      "@store/*": ["store/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

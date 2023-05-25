@@ -1,6 +1,10 @@
-import { fetchCategories, fetchProducts } from "@api/requests";
 import * as React from "react";
-import { TProduct } from "types";
+import { fetchCategories, fetchProducts } from "@api/requests";
+import { connect } from "react-redux";
+import { setProducts as setProductsAction } from "@store/actions";
+import { IState } from "@store/reducer";
+// import { Dispatch } from "redux";
+// import { TProduct } from "types";
 
 const ProductCard = ({ title, price, image, category }) => {
   return (
@@ -20,9 +24,8 @@ const ProductCard = ({ title, price, image, category }) => {
   );
 };
 
-export default function Menu() {
+function Menu({ products, setProducts }) {
   const [categories, setCategories] = React.useState<string[]>([]);
-  const [products, setProducts] = React.useState<TProduct[]>([]);
 
   const getCategories = async () => {
     const categories = await fetchCategories();
@@ -47,7 +50,7 @@ export default function Menu() {
           placeholder="Hamburger?"
           className="w-full h-8 border px-2 text-sm box-content outline-none"
         />
-        <button className="p-1 border hover:bg-red-100 hover:border-red-100 box-content">
+        <button className="p-1 border-y border-r hover:bg-red-100 box-content">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -82,3 +85,18 @@ export default function Menu() {
     </section>
   );
 }
+
+const mapStateToProps = (state: IState) => ({
+  products: state.products,
+});
+
+// Alternative
+// const mapDispatchToProps = (dispatch: Dispatch) => ({
+//   setProducts: (products: TProduct[]) => dispatch(setProductsAction(products)),
+// });
+
+const mapDispatchToProps = {
+  setProducts: setProductsAction,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);
