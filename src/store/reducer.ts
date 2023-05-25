@@ -1,21 +1,17 @@
 import ActionTypes from "./actionTypes";
 import { TProduct } from "types";
+import { ISetLoadingProducts, ISetProducts } from "./actions";
 
 export interface IState {
   products: TProduct[];
+  loadingProducts: boolean;
 }
 
-interface SetProducts {
-  type: ActionTypes.SET_PRODUCTS;
-  products: TProduct[];
-}
-
-type Action = SetProducts;
-
-// -- //
+type Action = ISetProducts | ISetLoadingProducts;
 
 const initialState: IState = {
   products: [],
+  loadingProducts: false,
 };
 
 export default function reducer(state: IState = initialState, action: Action) {
@@ -24,6 +20,11 @@ export default function reducer(state: IState = initialState, action: Action) {
       return {
         ...state,
         products: action.products,
+      };
+    case ActionTypes.SET_LOADING:
+      return {
+        ...state,
+        loadingProducts: action.loadingProducts,
       };
     default:
       return state;

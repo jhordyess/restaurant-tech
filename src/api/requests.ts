@@ -239,5 +239,8 @@ export const fetchProducts = () =>
     },
   ]);
 
-export const fetchProductImage = (product: TProduct) =>
-  fakeRequest({ ...product, image: "https://picsum.photos/300/400" });
+export const fetchProductImage = (product: TProduct, index: number = 118) =>
+  fakeRequest({
+    ...product,
+    image: `https://picsum.photos/id/${index}/300/400`,
+  });

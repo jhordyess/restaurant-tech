@@ -10,12 +10,12 @@ import {
 } from "redux";
 import reducer from "@store/reducer";
 import thunk from "redux-thunk";
-import { extraProduct, logger } from "@store/middleware";
+import { logger } from "@store/middleware";
 
 const compose =
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || reduxCompose;
 
-const enhancer = compose(applyMiddleware(thunk, logger, extraProduct));
+const enhancer = compose(applyMiddleware(thunk, logger));
 
 const store = createStore(reducer, enhancer);
 

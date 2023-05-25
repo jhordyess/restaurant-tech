@@ -1,7 +1,7 @@
 import * as React from "react";
 import { fetchCategories, fetchProducts } from "@api/requests";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductsWithImage } from "@store/actions";
+import { getProductsWithImage, setLoadingProducts } from "@store/actions";
 import { IState } from "@store/reducer";
 
 const ProductCard = ({ title, price, image, category }) => {
@@ -26,6 +26,7 @@ function Menu() {
   const [categories, setCategories] = React.useState<string[]>([]);
 
   const products = useSelector((state: IState) => state.products);
+  const loading = useSelector((state: IState) => state.loadingProducts);
   const dispatch = useDispatch();
 
   const getCategories = async () => {
@@ -34,8 +35,10 @@ function Menu() {
   };
 
   const getProducts = async () => {
+    dispatch(setLoadingProducts(true));
     const products = await fetchProducts();
     dispatch(getProductsWithImage(products));
+    dispatch(setLoadingProducts(false));
   };
 
   React.useEffect(() => {
@@ -73,17 +76,21 @@ function Menu() {
           </ul>
         </section>
       )}
-      <section className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-        {products.map(({ name, category, image, price }, index) => (
-          <ProductCard
-            key={name}
-            category={category}
-            title={name}
-            image={image}
-            price={price}
-          />
-        ))}
-      </section>
+      {loading ? (
+        <div className="w-16 h-16 border-8 border-t-red-200 rounded-full animate-spin"></div>
+      ) : (
+        <section className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          {products.map(({ name, category, image, price }, index) => (
+            <ProductCard
+              key={name}
+              category={category}
+              title={name}
+              image={image}
+              price={price}
+            />
+          ))}
+        </section>
+      )}
     </section>
   );
 }
