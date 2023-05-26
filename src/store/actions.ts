@@ -24,6 +24,16 @@ export const setLoadingProducts = (
   loadingProducts,
 });
 
+export interface IToggleFavorite {
+  type: ActionTypes.TOGGLE_FAVORITE;
+  id: number;
+}
+
+export const toggleFavorite = (id: number): IToggleFavorite => ({
+  type: ActionTypes.TOGGLE_FAVORITE,
+  id,
+});
+
 export const getProductsWithImage: any =
   (products: TProduct[] = []) =>
   async (dispatch) => {

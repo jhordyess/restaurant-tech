@@ -1,17 +1,35 @@
 import * as React from "react";
 import { fetchCategories, fetchProducts } from "@api/requests";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductsWithImage, setLoadingProducts } from "@store/actions";
+import {
+  getProductsWithImage,
+  setLoadingProducts,
+  toggleFavorite,
+} from "@store/actions";
 import { IState } from "@store/reducer";
 
-const ProductCard = ({ title, price, image, category }) => {
+const ProductCard = ({
+  title,
+  price,
+  image,
+  category,
+  favorite,
+  toggleFavorite,
+}) => {
   return (
     <div>
       <figure className="w-64 h-72 relative border-x border-t b-b">
         <img className="w-full h-full" src={image} alt="None" />
         <div className="absolute top-0 right-0 flex flex-row text-sm">
           <button className="hover:bg-red-100 py-2 px-3">➕</button>
-          <button className="hover:bg-red-100 py-2 px-3">🖤</button>
+          <button
+            className={`hover:bg-red-100 py-2 px-3 ${
+              favorite ? "border border-orange-300" : ""
+            }`}
+            onClick={toggleFavorite}
+          >
+            {favorite ? "🧡" : "🤍"}
+          </button>
         </div>
       </figure>
       <div className="h-16 border flex flex-col items-center justify-center">
@@ -39,6 +57,10 @@ function Menu() {
     const products = await fetchProducts();
     dispatch(getProductsWithImage(products));
     dispatch(setLoadingProducts(false));
+  };
+
+  const handleToggleFavorite = (id: number) => {
+    dispatch(toggleFavorite(id));
   };
 
   React.useEffect(() => {
@@ -80,15 +102,21 @@ function Menu() {
         <div className="w-16 h-16 border-8 border-t-red-200 rounded-full animate-spin"></div>
       ) : (
         <section className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-          {products.map(({ name, category, image, price }, index) => (
-            <ProductCard
-              key={name}
-              category={category}
-              title={name}
-              image={image}
-              price={price}
-            />
-          ))}
+          {products.map(
+            ({ name, category, image, price, id, favorite }, index) => (
+              <ProductCard
+                key={name}
+                category={category}
+                title={name}
+                image={image}
+                price={price}
+                favorite={favorite}
+                toggleFavorite={() => {
+                  handleToggleFavorite(id);
+                }}
+              />
+            )
+          )}
         </section>
       )}
     </section>

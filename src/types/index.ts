@@ -3,4 +3,6 @@ export type TProduct = {
   price: number;
   image: string;
   category: string;
+  id?: number; //🤔
+  favorite: boolean;
 };
