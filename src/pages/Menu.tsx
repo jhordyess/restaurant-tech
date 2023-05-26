@@ -43,8 +43,8 @@ const ProductCard = ({
 function Menu() {
   const [categories, setCategories] = React.useState<string[]>([]);
 
-  const products = useSelector((state: IState) => state.products);
-  const loading = useSelector((state: IState) => state.loadingProducts);
+  const products = useSelector((state: IState) => state.get("products").toJS());
+  const loading = useSelector((state: any) => state.get("loadingProducts"));
   const dispatch = useDispatch();
 
   const getCategories = async () => {
@@ -102,21 +102,24 @@ function Menu() {
         <div className="w-16 h-16 border-8 border-t-red-200 rounded-full animate-spin"></div>
       ) : (
         <section className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-          {products.map(
-            ({ name, category, image, price, id, favorite }, index) => (
-              <ProductCard
-                key={name}
-                category={category}
-                title={name}
-                image={image}
-                price={price}
-                favorite={favorite}
-                toggleFavorite={() => {
-                  handleToggleFavorite(id);
-                }}
-              />
+          {
+            //FIXME "any"
+            (products as any).map(
+              ({ name, category, image, price, id, favorite }) => (
+                <ProductCard
+                  key={name}
+                  category={category}
+                  title={name}
+                  image={image}
+                  price={price}
+                  favorite={favorite}
+                  toggleFavorite={() => {
+                    handleToggleFavorite(id);
+                  }}
+                />
+              )
             )
-          )}
+          }
         </section>
       )}
     </section>

@@ -37,9 +37,9 @@ export const toggleFavorite = (id: number): IToggleFavorite => ({
 export const getProductsWithImage: any =
   (products: TProduct[] = []) =>
   async (dispatch) => {
-    //🤔
+    //Promise.all?🤔
     const newProducts = await Promise.all(
-      products.map((product, index) => fetchProductImage(product, index + 30)) //🤔
+      products.map((product, index) => fetchProductImage(product, index + 30)) // Index?🤔
     );
 
     dispatch(setProducts(newProducts));
