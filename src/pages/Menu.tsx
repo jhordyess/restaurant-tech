@@ -1,12 +1,7 @@
 import * as React from "react";
-import { fetchCategories, fetchProducts } from "@api/requests";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getProductsWithImage,
-  setLoadingProducts,
-  toggleFavorite,
-} from "@store/actions";
-import { IState } from "@store/reducer";
+import { fetchCategories } from "@api/requests";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { fetchProductsWithImage, setFavorite } from "@store/slices/dataSlice";
 
 const ProductCard = ({
   title,
@@ -43,8 +38,13 @@ const ProductCard = ({
 function Menu() {
   const [categories, setCategories] = React.useState<string[]>([]);
 
-  const products = useSelector((state: IState) => state.get("products").toJS());
-  const loading = useSelector((state: any) => state.get("loadingProducts"));
+  const products = useSelector(
+    (state: any) => state.data.products,
+    shallowEqual
+    //para comparar comparacion y evitar redenderings
+  );
+
+  const loading = useSelector((state: any) => state.ui.loadingProducts);
   const dispatch = useDispatch();
 
   const getCategories = async () => {
@@ -53,14 +53,11 @@ function Menu() {
   };
 
   const getProducts = async () => {
-    dispatch(setLoadingProducts(true));
-    const products = await fetchProducts();
-    dispatch(getProductsWithImage(products));
-    dispatch(setLoadingProducts(false));
+    dispatch(fetchProductsWithImage());
   };
 
   const handleToggleFavorite = (id: number) => {
-    dispatch(toggleFavorite(id));
+    dispatch(setFavorite(id));
   };
 
   React.useEffect(() => {
