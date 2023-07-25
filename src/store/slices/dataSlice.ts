@@ -1,6 +1,5 @@
 import { fetchProductImage, fetchProducts } from '@api/requests'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { TProduct } from 'types'
 import { setLoadingProducts } from './uiSlice'
 
 type IMenuState = {

@@ -1,4 +1,3 @@
-import { TProduct } from 'types'
 import { fakeRequest } from '.'
 
 // export const getCategories = async () => {

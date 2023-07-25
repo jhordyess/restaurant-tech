@@ -1,4 +1,4 @@
-export type TProduct = {
+type TProduct = {
   name: string
   price: number
   image: string
