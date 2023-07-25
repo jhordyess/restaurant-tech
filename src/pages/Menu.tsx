@@ -14,10 +14,39 @@ type Props = {
 }
 
 const ProductCard = ({ title, price, image, favorite, toggleFavorite }: Props) => {
+  const [src, setSrc] = React.useState<string>(
+    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4='
+  )
+  // create a ref to the element we want to observe
+  const node = React.useRef<HTMLImageElement>(null)
+
+  React.useEffect(() => {
+    // create the observer
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setSrc(image)
+        }
+      })
+    })
+
+    // start observing
+    if (node.current) {
+      observer.observe(node.current)
+    }
+
+    // Disconnect the observer as soon as the component is unmounted
+    return () => {
+      if (node.current) {
+        observer.unobserve(node.current)
+      }
+    }
+  }, [image])
+
   return (
     <div>
-      <figure className="b-b relative h-72 w-64 border-x border-t">
-        <img className="h-full w-full" src={image} alt="None" />
+      <figure className="relative h-72 w-64 border-x border-t">
+        <img ref={node} className="h-full w-full bg-gray-300" src={src} alt="None" />
         <div className="absolute right-0 top-0 flex flex-row text-sm">
           <button className="px-3 py-2 hover:bg-red-100">➕</button>
           <button
