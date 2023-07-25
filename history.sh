@@ -24,3 +24,4 @@ npm i axios
 npm i @reduxjs/toolkit
 npm i -D prettier prettier-plugin-tailwindcss && touch .prettierrc.json
 npm i -D eslint && npx eslint --init
+npm i -D serve
