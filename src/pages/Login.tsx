@@ -1,5 +1,5 @@
-import * as React from "react";
+import * as React from 'react'
 
 export default function Login() {
-  return <div>Login</div>;
+  return <div>Login</div>
 }

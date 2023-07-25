@@ -1,5 +1,5 @@
-import * as React from "react";
+import * as React from 'react'
 
 export default function BookNow() {
-  return <div>BookNow</div>;
+  return <div>BookNow</div>
 }

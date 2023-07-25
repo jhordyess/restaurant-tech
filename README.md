@@ -21,7 +21,7 @@ Finally, a "Real" Front-End Project! 🙄 🤷‍♂️
 - CSS Libraries: [TailwindCSS](https://tailwindcss.com/)
 - Bundler: [Webpack](https://webpack.js.org/)
 - Hosting: [GitHub Pages](https://pages.github.com/)
-- Dev Environment: [VSCode](https://code.visualstudio.com/) with [dev containers](https://code.visualstudio.com/docs/remote/containers) in [Pop!_OS](https://pop.system76.com/)
+- Dev Environment: [VSCode](https://code.visualstudio.com/) with [dev containers](https://code.visualstudio.com/docs/remote/containers) in [Pop!\_OS](https://pop.system76.com/)
 
 ### Online
 

@@ -1,30 +1,30 @@
-import * as React from "react";
-import { Link } from "react-router-dom";
-import { TCustomersLinks } from "routes";
+import * as React from 'react'
+import { Link } from 'react-router-dom'
+import { TCustomersLinks } from 'routes'
 
 interface ICustomer {
-  children: React.ReactNode;
-  links: TCustomersLinks;
+  children: React.ReactNode
+  links: TCustomersLinks
 }
 
 export default function Customer({ children, links }: ICustomer) {
-  const [left, center, right] = links;
+  const [left, center, right] = links
 
-  const rightFixed = right.filter(({ isPrivate }) => !isPrivate);
+  const rightFixed = right.filter(({ isPrivate }) => !isPrivate)
 
-  const [toggleLeft, setToggleLeft] = React.useState(false);
+  const [toggleLeft, setToggleLeft] = React.useState(false)
 
   const handleToggle = () => {
-    setToggleLeft(!toggleLeft);
-  };
+    setToggleLeft(!toggleLeft)
+  }
 
   return (
-    <div className="bg-red-50 w-full min-h-screen px-10">
-      <header className="py-6 border-b">
-        <nav className="flex flex-row justify-between items-center">
-          <div className="relative flex flex-column item-center">
+    <div className="min-h-screen w-full bg-red-50 px-10">
+      <header className="border-b py-6">
+        <nav className="flex flex-row items-center justify-between">
+          <div className="flex-column item-center relative flex">
             <button
-              className="w-full flex items-center p-1 justify-between text-lg"
+              className="flex w-full items-center justify-between p-1 text-lg"
               onClick={handleToggle}
             >
               <span className="text-2xl">❇ Restaurant Tech</span>
@@ -58,12 +58,10 @@ export default function Customer({ children, links }: ICustomer) {
               )}
             </button>
             {toggleLeft && (
-              <ul className="w-full absolute bg-white" style={{ top: 41 }}>
+              <ul className="absolute w-full bg-white" style={{ top: 41 }}>
                 {left.map(({ name, path }, index) => (
-                  <Link to={path} key={"lfnav-" + index} onClick={handleToggle}>
-                    <li className="w-full hover:bg-blue-100 py-2 px-4">
-                      {name}
-                    </li>
+                  <Link to={path} key={'lfnav-' + index} onClick={handleToggle}>
+                    <li className="w-full px-4 py-2 hover:bg-blue-100">{name}</li>
                   </Link>
                 ))}
               </ul>
@@ -71,14 +69,14 @@ export default function Customer({ children, links }: ICustomer) {
           </div>
           <div>
             <Link to={center.path}>
-              <span className="hover:bg-red-100 py-2 px-4">{center.name}</span>
+              <span className="px-4 py-2 hover:bg-red-100">{center.name}</span>
             </Link>
           </div>
           <div>
-            <ul className="w-full flex flex-row">
+            <ul className="flex w-full flex-row">
               {rightFixed.map(({ name, path }, index) => (
-                <Link to={path} key={"lfnav-" + index}>
-                  <li className="w-full hover:bg-red-100 py-2 px-4">{name}</li>
+                <Link to={path} key={'lfnav-' + index}>
+                  <li className="w-full px-4 py-2 hover:bg-red-100">{name}</li>
                 </Link>
               ))}
             </ul>
@@ -87,5 +85,5 @@ export default function Customer({ children, links }: ICustomer) {
       </header>
       <main>{children}</main>
     </div>
-  );
+  )
 }

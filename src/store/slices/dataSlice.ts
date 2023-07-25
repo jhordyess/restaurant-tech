@@ -1,50 +1,48 @@
-import { fetchProductImage, fetchProducts } from "@api/requests";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { TProduct } from "types";
-import { setLoadingProducts } from "./uiSlice";
+import { fetchProductImage, fetchProducts } from '@api/requests'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { TProduct } from 'types'
+import { setLoadingProducts } from './uiSlice'
 
 type IMenuState = {
-  products: TProduct[];
-};
+  products: TProduct[]
+}
 
 const initialState: IMenuState = {
-  products: [],
-};
+  products: []
+}
 
 export const fetchProductsWithImage: any = createAsyncThunk(
-  "data/fetchProductsWithImage",
+  'data/fetchProductsWithImage',
   async (_, { dispatch }) => {
-    dispatch(setLoadingProducts(true));
+    dispatch(setLoadingProducts(true))
 
-    const products = await fetchProducts();
+    const products = await fetchProducts()
     //Promise.all?🤔
     const newProducts = await Promise.all(
       products.map((product, index) => fetchProductImage(product, index + 30)) // Index?🤔
-    );
-    dispatch(setProducts(newProducts));
-    dispatch(setLoadingProducts(false));
+    )
+    dispatch(setProducts(newProducts))
+    dispatch(setLoadingProducts(false))
   }
-);
+)
 
 const dataSlice = createSlice({
-  name: "data",
+  name: 'data',
   initialState,
   reducers: {
     setProducts: (state, action) => {
-      state.products = action.payload;
+      state.products = action.payload
     },
     setFavorite: (state, action) => {
-      const currentProductIndex = state.products.findIndex(
-        (product) => product.id === action.payload
-      );
+      const currentProductIndex = state.products.findIndex(product => product.id === action.payload)
 
       if (currentProductIndex >= 0) {
-        const isFavorite = state.products[currentProductIndex].favorite;
-        state.products[currentProductIndex].favorite = !isFavorite;
+        const isFavorite = state.products[currentProductIndex].favorite
+        state.products[currentProductIndex].favorite = !isFavorite
       }
-    },
-  },
-});
+    }
+  }
+})
 
-export const { setFavorite, setProducts } = dataSlice.actions;
-export default dataSlice.reducer;
+export const { setFavorite, setProducts } = dataSlice.actions
+export default dataSlice.reducer

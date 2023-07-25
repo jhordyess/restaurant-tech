@@ -1,5 +1,5 @@
-import * as React from "react";
+import * as React from 'react'
 
 export default function MyOrder() {
-  return <div>MyOrder</div>;
+  return <div>MyOrder</div>
 }
