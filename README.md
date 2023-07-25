@@ -29,6 +29,7 @@ Visit the project at: <https://rech.jhordyess.com>.
 
 ## To-Do
 
+- Fix "any" types
 - Thing of more features.
 - Write test cases.
 - Add todos ✍
