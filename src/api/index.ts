@@ -1,47 +1,47 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 
 const API = axios.create({
   baseURL: 'https://dummyjson.com',
   responseType: 'json'
 })
 
-const getRequestConfiguration = (authorization: string) => {
-  const headers = {
+const getRequestConfig = (authorization?: string): AxiosRequestConfig => {
+  const headers: AxiosRequestConfig['headers'] = {
     // "Access-Control-Allow-Origin": "*",
     'Content-Type': 'application/json'
   }
-  if (authorization) headers['Authorization'] = `Bearer ${authorization}`
+  if (authorization) headers.Authorization = `Bearer ${authorization}`
   return { headers }
 }
 
-type TMakeRequest = {
+type ApiRequest<T> = {
   url: string
-  values: Object
-  requestType?: 'GET' | 'POST' | 'DELETE'
+  data: T
+  method?: 'GET' | 'POST' | 'DELETE'
   authorization?: string
 }
 
-export const makeRequest = ({
+export function makeRequest<T>({
   url,
-  values,
-  requestType = 'GET',
-  authorization = null
-}: TMakeRequest) => {
-  const requestConfiguration = getRequestConfiguration(authorization)
-  switch (requestType) {
+  data,
+  method = 'GET',
+  authorization
+}: ApiRequest<T>): Promise<AxiosResponse> {
+  const requestConfig = getRequestConfig(authorization)
+  switch (method) {
     case 'GET':
-      return API.get(url, requestConfiguration)
+      return API.get(url, requestConfig)
     case 'POST':
-      return API.post(url, values, requestConfiguration)
+      return API.post(url, data, requestConfig)
     case 'DELETE':
-      return API.delete(url, requestConfiguration)
+      return API.delete(url, requestConfig)
     default:
-      return
+      throw new Error('Invalid request method')
   }
 }
 
 export function fakeRequest<T>(dummyData: T): Promise<T> {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       resolve(dummyData)
     }, 500)

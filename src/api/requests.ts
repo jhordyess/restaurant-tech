@@ -1,5 +1,5 @@
 import { TProduct } from 'types'
-import { fakeRequest, makeRequest } from '.'
+import { fakeRequest } from '.'
 
 // export const getCategories = async () => {
 //   const { data } = await makeRequest({

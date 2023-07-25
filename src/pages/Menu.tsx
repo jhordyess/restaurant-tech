@@ -2,8 +2,18 @@ import * as React from 'react'
 import { fetchCategories } from '@api/requests'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { fetchProductsWithImage, setFavorite } from '@store/slices/dataSlice'
+import { TProduct } from 'types'
 
-const ProductCard = ({ title, price, image, category, favorite, toggleFavorite }) => {
+type Props = {
+  title: string
+  price: number
+  image: string
+  category?: string
+  favorite: boolean
+  toggleFavorite: () => void
+}
+
+const ProductCard = ({ title, price, image, favorite, toggleFavorite }: Props) => {
   return (
     <div>
       <figure className="b-b relative h-72 w-64 border-x border-t">
@@ -32,7 +42,7 @@ function Menu() {
   const products = useSelector(
     (state: any) => state.data.products,
     shallowEqual
-    //para comparar comparacion y evitar redenderings
+    //compare and avoid re-renders
   )
 
   const loading = useSelector((state: any) => state.ui.loadingProducts)
@@ -47,7 +57,8 @@ function Menu() {
     dispatch(fetchProductsWithImage())
   }
 
-  const handleToggleFavorite = (id: number) => {
+  const handleToggleFavorite = (id?: number) => {
+    if (!id) return
     dispatch(setFavorite(id))
   }
 
@@ -90,22 +101,19 @@ function Menu() {
         <div className="h-16 w-16 animate-spin rounded-full border-8 border-t-red-200"></div>
       ) : (
         <section className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-          {
-            //FIXME "any"
-            (products as any).map(({ name, category, image, price, id, favorite }) => (
-              <ProductCard
-                key={name}
-                category={category}
-                title={name}
-                image={image}
-                price={price}
-                favorite={favorite}
-                toggleFavorite={() => {
-                  handleToggleFavorite(id)
-                }}
-              />
-            ))
-          }
+          {(products as TProduct[]).map(({ name, category, image, price, id, favorite }) => (
+            <ProductCard
+              key={name}
+              category={category}
+              title={name}
+              image={image}
+              price={price}
+              favorite={favorite}
+              toggleFavorite={() => {
+                handleToggleFavorite(id)
+              }}
+            />
+          ))}
         </section>
       )}
     </section>

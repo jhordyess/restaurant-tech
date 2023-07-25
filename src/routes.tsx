@@ -85,7 +85,7 @@ const customerRoutes = [
 
 export type TCustomersLink = {
   path: string
-  name: string
+  name?: string
   isPrivate?: boolean
 }
 
