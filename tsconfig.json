@@ -1,9 +1,19 @@
 {
   "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
     "module": "es6",
     "target": "es5",
     "moduleResolution": "node",
     "jsx": "react",
+    "allowJs": true,
+
+    /* Linting */
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+
+    /* Alias */
     "baseUrl": "./src",
     "paths": {
       "@components/*": ["components/*"],
@@ -12,5 +22,6 @@
       "@store/*": ["store/*"]
     }
   },
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
