@@ -22,3 +22,4 @@ npm i react-router-dom
 npm i redux react-redux
 npm i axios
 npm i @reduxjs/toolkit
+npm i -D prettier prettier-plugin-tailwindcss && touch .prettierrc.json
