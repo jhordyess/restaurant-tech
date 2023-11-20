@@ -15,14 +15,9 @@
     "noImplicitReturns": true,
 
     /* Alias */
-    "baseUrl": "./src",
     "paths": {
-      "@components/*": ["components/*"],
-      "@pages/*": ["pages/*"],
-      "@api/*": ["api/*"],
-      "@store/*": ["store/*"]
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

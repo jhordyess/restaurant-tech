@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import { TCustomersLinks } from 'routes'
+import { TCustomersLinks } from '@/routes'
 
 interface ICustomer {
   children: React.ReactNode

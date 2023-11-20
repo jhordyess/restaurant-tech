@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { fetchCategories } from '@api/requests'
+import { fetchCategories } from '@/api/requests'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { fetchProductsWithImage, setFavorite } from '@store/slices/dataSlice'
+import { fetchProductsWithImage, setFavorite } from '@/store/slices/dataSlice'
 
 type Props = {
   title: string

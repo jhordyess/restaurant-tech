@@ -1,4 +1,4 @@
-import { fetchProductImage, fetchProducts } from '@api/requests'
+import { fetchProductImage, fetchProducts } from '@/api/requests'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { setLoadingProducts } from './uiSlice'
 
