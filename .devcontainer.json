@@ -1,12 +1,11 @@
 {
   "name": "restaurant-tech",
-  "image": "jhordyess/node",
+  "image": "jhordyess/node:18",
   "customizations": {
     "vscode": {
       "extensions": [
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
-        "dsznajder.es7-react-js-snippets",
         "bradlc.vscode-tailwindcss"
       ],
       "settings": {
@@ -14,6 +13,5 @@
       }
     }
   },
-  "remoteUser": "node",
-  "postCreateCommand": "bash config.sh"
+  "postCreateCommand": "sudo npm i -g npm && yarn"
 }
