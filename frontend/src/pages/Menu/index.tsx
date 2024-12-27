@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { fetchCategories } from '@/api/requests'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { fetchProductsWithImage, setFavorite } from '@/store/slices/dataSlice'
+import { useQuery } from '@tanstack/react-query'
 
 type Props = {
   title: string
@@ -65,35 +66,24 @@ const ProductCard = ({ title, price, image, favorite, toggleFavorite }: Props) =
 }
 
 function Menu() {
-  const [categories, setCategories] = React.useState<string[]>([])
+  const { data: categories } = useQuery({
+    queryKey: ['categories'],
+    queryFn: fetchCategories,
+    initialData: []
+  })
 
-  const products = useSelector(
-    (state: any) => state.data.products,
-    shallowEqual
-    //compare and avoid re-renders
-  )
+  const { data: products, isLoading: loading } = useQuery({
+    queryKey: ['products', categories],
+    queryFn: fetchProductsWithImage,
+    enabled: !!categories
+  })
 
-  const loading = useSelector((state: any) => state.ui.loadingProducts)
   const dispatch = useDispatch()
-
-  const getCategories = async () => {
-    const categories = await fetchCategories()
-    setCategories(categories)
-  }
-
-  const getProducts = async () => {
-    dispatch(fetchProductsWithImage())
-  }
 
   const handleToggleFavorite = (id?: number) => {
     if (!id) return
     dispatch(setFavorite(id))
   }
-
-  React.useEffect(() => {
-    getCategories()
-    getProducts()
-  }, [])
 
   return (
     <section className="flex flex-col items-center gap-y-6 py-6">
