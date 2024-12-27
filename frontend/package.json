@@ -1,5 +1,5 @@
 {
-  "name": "restaurant-tech_frontend",
+  "name": "@app/frontend",
   "private": true,
   "scripts": {
     "dev": "webpack serve --config webpack.config.dev.js",

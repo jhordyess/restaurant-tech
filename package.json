@@ -12,13 +12,12 @@
     "TailwindCSS",
     "Restaurant"
   ],
-  "workspaces": {
-    "packages": [
-      "frontend",
-      "backend"
-    ]
-  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
+    "dev:frontend": "yarn workspace @app/frontend dev",
     "format": "yarn workspaces foreach -A run prettier --write ."
   },
   "devDependencies": {
