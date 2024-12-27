@@ -1,9 +1,9 @@
 {
-  "arrowParens": "avoid",
-  "singleQuote": true,
   "printWidth": 100,
-  "semi": false,
   "trailingComma": "none",
+  "semi": false,
+  "singleQuote": true,
+  "arrowParens": "avoid",
   "plugins": ["prettier-plugin-tailwindcss"],
 
   "bracketSpacing": true,

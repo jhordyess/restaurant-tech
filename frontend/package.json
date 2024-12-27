@@ -1,26 +1,14 @@
 {
-  "name": "restaurant-tech",
-  "description": "Front-End Application Demo for In-Site Ordering, Table Management, and Menu Management.",
-  "version": "1.0.0",
-  "author": "Jhordy Gavinchu <dev@jhordyess.com>",
-  "license": "MIT",
+  "name": "restaurant-tech_frontend",
   "private": true,
-  "keywords": [
-    "React",
-    "Redux",
-    "TypeScript",
-    "TailwindCSS",
-    "Restaurant"
-  ],
   "scripts": {
     "dev": "webpack serve --config webpack.config.dev.js",
-    "build": "webpack --config webpack.config.prod.js",
-    "start": "npm run build && serve -s dist -l 3000",
+    "build": "yarn validate && webpack --config webpack.config.prod.js",
+    "start": "yarn build && serve -s dist -l 3000",
     "lint": "eslint . --ext .ts,.tsx",
-    "format": "prettier --write .",
-    "predeploy": "npm run lint && npm run build",
     "deploy": "gh-pages -d dist",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "validate": "yarn lint"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -48,8 +36,6 @@
     "husky": "^8.0.3",
     "mini-css-extract-plugin": "^2.7.6",
     "postcss-loader": "^7.3.0",
-    "prettier": "^3.0.0",
-    "prettier-plugin-tailwindcss": "^0.5.7",
     "serve": "^14.2.0",
     "style-loader": "^3.3.3",
     "tailwindcss": "^3.3.2",

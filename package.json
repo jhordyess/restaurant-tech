@@ -1,0 +1,29 @@
+{
+  "name": "restaurant-tech",
+  "description": "FullStack App Demo for In-Site Ordering, Table Management, and Menu Management.",
+  "version": "1.0.0",
+  "author": "Jhordy Gavinchu <dev@jhordyess.com>",
+  "license": "MIT",
+  "private": true,
+  "keywords": [
+    "React",
+    "NodeJS",
+    "TypeScript",
+    "TailwindCSS",
+    "Restaurant"
+  ],
+  "workspaces": {
+    "packages": [
+      "frontend",
+      "backend"
+    ]
+  },
+  "scripts": {
+    "format": "yarn workspaces foreach -A run prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "prettier-plugin-tailwindcss": "^0.5.7"
+  },
+  "packageManager": "yarn@4.5.3"
+}
