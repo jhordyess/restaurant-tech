@@ -1,5 +1,4 @@
 import { fakeRequest } from '@/api'
-import { fetchProductImage } from './fetchProductImage'
 
 export const fetchProducts = async () => {
   const products = await fakeRequest<Omit<TProduct, 'id'>[]>([
@@ -8,7 +7,7 @@ export const fetchProducts = async () => {
       category: 'Main Entrees',
       price: 15.99,
       image: '',
-      favorite: false
+      favorite: true
     },
     {
       name: 'Asadito Colorado Vallegrandino',
@@ -289,3 +288,10 @@ export const fetchProducts = async () => {
 
   return newProducts
 }
+
+const fetchProductImage = (product: Omit<TProduct, 'id'>, index: number) =>
+  fakeRequest({
+    ...product,
+    id: index,
+    image: `https://picsum.photos/id/${index + 30}/300/400`
+  })

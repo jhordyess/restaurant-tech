@@ -1,8 +1,9 @@
 import * as React from 'react'
-import { fetchCategories } from '@/api/requests'
 import { useDispatch } from 'react-redux'
-import { fetchProductsWithImage, setFavorite } from '@/store/slices/dataSlice'
+import { setFavorite } from '@/store/slices/dataSlice'
 import { useQuery } from '@tanstack/react-query'
+import { fetchCategories } from './services/fetchCategories'
+import { fetchProducts } from './services/fetchProducts'
 
 type Props = {
   title: string
@@ -72,9 +73,9 @@ function Menu() {
     initialData: []
   })
 
-  const { data: products, isLoading: loading } = useQuery({
+  const { data: products, isLoading } = useQuery({
     queryKey: ['products', categories],
-    queryFn: fetchProductsWithImage,
+    queryFn: fetchProducts,
     enabled: !!categories
   })
 
@@ -115,11 +116,12 @@ function Menu() {
           </ul>
         </section>
       )}
-      {loading ? (
+
+      {isLoading || !products ? (
         <div className="h-16 w-16 animate-spin rounded-full border-8 border-t-red-200"></div>
       ) : (
         <section className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-          {(products as TProduct[]).map(({ name, category, image, price, id, favorite }) => (
+          {products.map(({ name, category, image, price, id, favorite }) => (
             <ProductCard
               key={name}
               category={category}
