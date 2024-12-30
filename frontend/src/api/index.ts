@@ -49,10 +49,10 @@ export const makeRequest: ApiRequest = async ({
     })
 }
 
-export function fakeRequest<T>(dummyData: T): Promise<T> {
+export function fakeRequest<T>(dummyData: T, delay = 500): Promise<T> {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve(dummyData)
-    }, 500)
+    }, delay)
   })
 }
