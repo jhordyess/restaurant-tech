@@ -1,6 +1,6 @@
 import { fakeRequest } from '@/api'
 
-export const fetchProducts = async () => {
+export const fetchProducts = async (): Promise<TProduct[]> => {
   const products = await fakeRequest<Omit<TProduct, 'id'>[]>([
     {
       name: 'Keperí al horno',
@@ -284,14 +284,18 @@ export const fetchProducts = async () => {
     }
   ])
 
-  const newProducts = await Promise.all(products.map(fetchProductImage))
+  const newProductsWithId = products.map(product => ({
+    ...product,
+    id: Math.random().toString(36).substring(2, 7)
+  }))
 
-  return newProducts
+  const newProductsWithImage = await Promise.all(newProductsWithId.map(fetchProductImage))
+
+  return newProductsWithImage
 }
 
-const fetchProductImage = (product: Omit<TProduct, 'id'>, index: number) =>
+const fetchProductImage = (product: TProduct, index: number) =>
   fakeRequest({
     ...product,
-    id: index,
     image: `https://picsum.photos/id/${index + 30}/300/400`
   })

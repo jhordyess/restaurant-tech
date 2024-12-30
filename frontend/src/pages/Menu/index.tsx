@@ -8,7 +8,7 @@ import { fetchProducts } from './services/fetchProducts'
 type Props = {
   title: string
   price: number
-  image: string
+  image?: string
   category?: string
   favorite: boolean
   toggleFavorite: () => void
@@ -25,7 +25,7 @@ const ProductCard = ({ title, price, image, favorite, toggleFavorite }: Props) =
     // create the observer
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && image) {
           setSrc(image)
         }
       })
@@ -81,7 +81,7 @@ function Menu() {
 
   const dispatch = useDispatch()
 
-  const handleToggleFavorite = (id?: number) => {
+  const handleToggleFavorite = (id: string) => {
     if (!id) return
     dispatch(setFavorite(id))
   }

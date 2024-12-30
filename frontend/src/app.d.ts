@@ -1,8 +1,8 @@
 type TProduct = {
+  id: string
   name: string
   price: number
-  image: string
+  image?: string
   category: string
-  id?: number //🤔
   favorite: boolean
 }
