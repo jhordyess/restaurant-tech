@@ -1,10 +1,9 @@
 import * as React from 'react'
-import { useDispatch } from 'react-redux'
-import { setFavorite } from '@/store/slices/dataSlice'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { fetchCategories } from './services/fetchCategories'
 import { fetchProducts } from './services/fetchProducts'
 import { ProductCard } from './components/ProductCard'
+import { toggleFavorite } from './services/toggleFavorite'
 
 function Menu() {
   const { data: categories } = useQuery({
@@ -19,11 +18,23 @@ function Menu() {
     enabled: !!categories
   })
 
-  const dispatch = useDispatch()
+  const { isPending, mutate } = useMutation({
+    mutationKey: ['toggleFavorite'],
+    mutationFn: toggleFavorite
+  })
+
+  const queryClient = useQueryClient()
 
   const handleToggleFavorite = (id: string) => {
     if (!id) return
-    dispatch(setFavorite(id))
+    mutate(id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ['products'],
+          refetchType: 'all'
+        })
+      }
+    })
   }
 
   return (
@@ -57,7 +68,7 @@ function Menu() {
         </section>
       )}
 
-      {isLoading || !products ? (
+      {isLoading || !products || isPending ? (
         <div className="h-16 w-16 animate-spin rounded-full border-8 border-t-red-200"></div>
       ) : (
         <section className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
