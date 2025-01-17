@@ -12,7 +12,6 @@
     "check-ts": "tsc --noEmit"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.5",
     "@tanstack/react-query": "^5.62.11",
     "axios": "^1.7.9",
     "react": "^18.2.0",
