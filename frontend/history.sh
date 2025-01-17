@@ -13,19 +13,19 @@ yarn add -D mini-css-extract-plugin css-loader style-loader
 yarn add -D css-minimizer-webpack-plugin terser-webpack-plugin clean-webpack-plugin
 touch webpack.config.dev.js webpack.config.prod.js &&
   npm pkg set scripts.dev="webpack serve --config webpack.config.dev.js" &&
-  npm pkg set scripts.build="webpack --config webpack.config.prod.js"
+  npm pkg set scripts.build="yarn validate && webpack --config webpack.config.prod.js"
 
 # Hosting with GitHub Pages
 yarn add -D gh-pages cname-webpack-plugin &&
-  npm pkg set scripts.predeploy="npm run lint && npm run build" &&
-  npm pkg set scripts.deploy="gh-pages -d dist"
+  npm pkg set scripts.deploy="yarn build && gh-pages -d dist"
 
 # TypeScript
 yarn add -D typescript ts-loader @types/react @types/react-dom &&
-  touch tsconfig.json
+  npm pkg set scripts.check:ts="tsc --noEmit" &&
+  yarn tsc --init
 
 # Styling with Tailwind CSS
-yarn add -D tailwindcss postcss-loader autoprefixer &&
+yarn add -D tailwindcss postcss postcss-loader autoprefixer &&
   yarn tailwindcss init -p
 
 # Formatter with Prettier
@@ -39,15 +39,15 @@ yarn add -D eslint && yarn eslint --init &&
 
 # Local server with serve
 yarn add -D serve &&
-  npm pkg set scripts.start="npm run build && serve -s dist -l 3000"
+  npm pkg set scripts.start="yarn build && serve -s dist -l 3000"
 
 # Git hooks with Husky
 yarn add -D husky &&
-  yarn husky install &&
-  yarn husky add .husky/pre-push "npm run lint" &&
-  npm pkg set scripts.prepare="husky install"
+  yarn husky &&
+  touch .husky/pre-push && && echo "yarn validate" >.husky/pre-push &&
+  npm pkg set scripts.postinstall="husky"
 
 # Extra packages
 yarn add react-router-dom
-yarn add redux react-redux @reduxjs/toolkit
 yarn add axios
+yarn add @tanstack/react-query
