@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('node:path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
@@ -7,16 +7,16 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CnameWebpackPlugin = require('cname-webpack-plugin')
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'index.tsx'),
+  entry: path.resolve('src', 'index.tsx'),
   mode: 'production',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve('dist'),
     filename: '[name].[contenthash].js'
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
     alias: {
-      '@': path.resolve(__dirname, 'src')
+      '@': path.resolve('src')
     }
   },
   module: {
@@ -30,7 +30,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'public', 'index.html'),
+      template: path.resolve('public', 'index.html'),
       filename: 'index.html'
     }),
     new MiniCssExtractPlugin({
@@ -43,6 +43,17 @@ module.exports = {
   ],
   optimization: {
     minimize: true,
-    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()]
+    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
+    splitChunks: {
+      cacheGroups: {
+        default: false,
+        myCacheGroup: {
+          test: /node_modules/,
+          chunks: 'all',
+          name: 'vendor',
+          enforce: true
+        }
+      }
+    }
   }
 }
