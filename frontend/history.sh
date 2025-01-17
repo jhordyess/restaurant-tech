@@ -35,7 +35,7 @@ yarn add -D prettier prettier-plugin-tailwindcss &&
 
 # Linter with ESLint
 yarn add -D eslint && yarn eslint --init &&
-  npm pkg set scripts.lint="eslint . --ext .ts,.tsx"
+  npm pkg set scripts.lint="eslint ."
 
 # Local server with serve
 yarn add -D serve &&
