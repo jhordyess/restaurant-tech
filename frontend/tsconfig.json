@@ -10,8 +10,7 @@
 
     /* Linting */
     "strict": true,
-    // FIXME: Remove this when all files are typed
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noImplicitReturns": true,
 
     /* Alias */

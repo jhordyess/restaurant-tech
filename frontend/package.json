@@ -8,7 +8,8 @@
     "lint": "eslint . --ext .ts,.tsx",
     "deploy": "gh-pages -d dist",
     "prepare": "husky install",
-    "validate": "yarn lint"
+    "validate": "yarn lint",
+    "check-ts": "tsc --noEmit"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -16,9 +17,7 @@
     "axios": "^1.7.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^8.0.5",
-    "react-router-dom": "^6.11.2",
-    "redux": "^4.2.1"
+    "react-router-dom": "^6.11.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.6",
