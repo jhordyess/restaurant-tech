@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 type Props = {
   title: string
@@ -10,13 +10,13 @@ type Props = {
 }
 
 export const ProductCard = ({ title, price, image, favorite, toggleFavorite }: Props) => {
-  const [src, setSrc] = React.useState<string>(
+  const [src, setSrc] = useState<string>(
     'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4='
   )
   // create a ref to the element we want to observe
-  const node = React.useRef<HTMLImageElement>(null)
+  const node = useRef<HTMLImageElement>(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     // create the observer
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {

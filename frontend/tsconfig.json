@@ -3,15 +3,14 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "module": "es6",
-    "target": "es5",
+    "target": "ES6",
     "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "allowJs": true,
 
     /* Linting */
     "strict": true,
-    // FIXME: Remove this when all files are typed
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noImplicitReturns": true,
 
     /* Alias */
