@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { fetchCategories } from './services/fetchCategories'
 import { fetchProducts } from './services/fetchProducts'

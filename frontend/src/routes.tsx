@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { useRoutes } from 'react-router-dom'
 import About from '@/pages/About'
 import BookNow from '@/pages/BookNow'
