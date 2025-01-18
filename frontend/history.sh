@@ -12,8 +12,8 @@ yarn add -D html-webpack-plugin
 yarn add -D mini-css-extract-plugin css-loader style-loader
 yarn add -D css-minimizer-webpack-plugin terser-webpack-plugin clean-webpack-plugin
 touch webpack.config.dev.js webpack.config.prod.js &&
-  npm pkg set scripts.dev="webpack serve --config webpack.config.dev.js" &&
-  npm pkg set scripts.build="yarn validate && webpack --config webpack.config.prod.js"
+  npm pkg set scripts.dev="webpack serve --config webpack.config.dev.cjs" &&
+  npm pkg set scripts.build="yarn validate && webpack --config webpack.config.prod.cjs"
 
 # Hosting with GitHub Pages
 yarn add -D gh-pages cname-webpack-plugin &&

@@ -2,8 +2,8 @@
   "name": "@app/frontend",
   "private": true,
   "scripts": {
-    "dev": "webpack serve --config webpack.config.dev.js",
-    "build": "yarn validate && webpack --config webpack.config.prod.js",
+    "dev": "webpack serve --config webpack.config.dev.cjs",
+    "build": "yarn validate && webpack --config webpack.config.prod.cs",
     "start": "yarn build && serve -s dist -l 3000",
     "deploy": "yarn build && gh-pages -d dist",
     "postinstall": "husky",
